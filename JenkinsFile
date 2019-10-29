@@ -8,9 +8,24 @@ node{
     stage('Build'){
         sh "npm run build"
     }
-    stage('Deploy'){
-        sh "pm2 restart all"
+    stage('Deployment') {
+      
+        stage('Production') {
+          when {
+            branch 'master'
+          }
+          steps {
+            withAWS(region:'us-east-1',credentials:'awsid') 
+            {
+              s3Delete(bucket: 'angularlir', path:'**/*')
+              s3Upload(bucket: 'angularlir', workingDir:'dist', includePathPattern:'**/*');
+            }
+            // mail(subject: 'Production Build', body: 'New Deployment to Production', to: 'jenkins-mailing-list@mail.com')
+          }
+        }
     }
-
 }
+
+
+
 
