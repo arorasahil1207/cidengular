@@ -13,15 +13,15 @@ node{
     stage('Deployment') {
       echo 'move to deploy'
         stage('Production') {
-          steps {
+          
             withAWS(region:'us-east-1',credentials:'awsid') 
             {
                 echo 'hi there running the build'
               s3Delete(bucket: 'angularlir', path:'**/*')
-              s3Upload(bucket: 'angularlir', workingDir:'build', includePathPattern:'**/*');
+              s3Upload(bucket: 'angularlir', workingDir:'dist', includePathPattern:'**/*');
             }
             // mail(subject: 'Production Build', body: 'New Deployment to Production', to: 'jenkins-mailing-list@mail.com')
-          }
+          
         }
     }
 }
