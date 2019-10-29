@@ -1,5 +1,5 @@
 node{
-    stage('Checkout master'){
+    stage('  master'){
         git branch:'master', url:'https://github.com/arorasahil1207/cidengular.git'
     }
     stage('install node modules'){
