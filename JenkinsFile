@@ -18,7 +18,7 @@ node{
             withAWS(region:'us-east-1',credentials:'awsid') 
             {
               s3Delete(bucket: 'angularlir', path:'**/*')
-              s3Upload(bucket: 'angularlir', workingDir:'dist', includePathPattern:'**/*');
+              s3Upload(bucket: 'angularlir', workingDir:'build', includePathPattern:'**/*');
             }
             // mail(subject: 'Production Build', body: 'New Deployment to Production', to: 'jenkins-mailing-list@mail.com')
           }
