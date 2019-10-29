@@ -1,0 +1,15 @@
+node{
+    stage('Checkout master'){
+        git branch:'master', url:'https://github.com/arorasahil1207/cidengular.git'
+    }
+    stage('install node modules'){
+        sh 'npm install'
+    }
+    stage('Build'){
+        sh "npm run build"
+    }
+    stage('Deploy'){
+        sh "pm2 restart all"
+    }
+
+}
