@@ -3,13 +3,15 @@ node{
         git branch:'master', url:'https://github.com/arorasahil1207/cidengular.git'
     }
     stage('install node modules'){
+        echo 'installing node'
         sh 'npm install'
     }
     stage('Build'){
+        echo 'building the code'
         sh "npm run build"
     }
     stage('Deployment') {
-      
+      echo 'move to deploy'
         stage('Production') {
           when {
             branch 'master'
@@ -17,6 +19,7 @@ node{
           steps {
             withAWS(region:'us-east-1',credentials:'awsid') 
             {
+                echo 'hi there running the build'
               s3Delete(bucket: 'angularlir', path:'**/*')
               s3Upload(bucket: 'angularlir', workingDir:'build', includePathPattern:'**/*');
             }
